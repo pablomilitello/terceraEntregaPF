@@ -1,5 +1,5 @@
-import { productModel } from './models/products.model.js';
-import { TRUE, FALSE } from '../utils.js';
+import { productModel } from '../../mongoDB/models/products.model.js';
+import { TRUE, FALSE } from '../../../utils.js';
 
 class ProductManager {
   findAll = async (limit, page, sort, category, availability, lean = false) => {

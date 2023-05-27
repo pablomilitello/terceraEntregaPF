@@ -21,13 +21,19 @@ const usersSchema = new mongoose.Schema({
     type: String,
   },
   cart: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     ref: 'Carts',
   },
   role: {
     type: String,
     default: 'user',
   },
+  orders: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Orders',
+    },
+  ],
 });
 
 export const userModel = mongoose.model('Users', usersSchema);

@@ -1,4 +1,4 @@
-import UsersManager from '../DAL/UsersManagerMongo';
+import UsersManager from '../DAL/DAOs/usersDaos/UsersManagerMongo.js';
 import { __dirname } from '../utils.js';
 
 const path = __dirname + '/users.json';

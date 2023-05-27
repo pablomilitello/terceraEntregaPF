@@ -1,4 +1,4 @@
-import ProductManager from '../DAL/ProductManagerMongo.js';
+import ProductManager from '../DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 import { __dirname } from '../utils.js';
 
 const path = __dirname + '/products.json';

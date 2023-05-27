@@ -7,13 +7,13 @@ import cookieParser from 'cookie-parser';
 import './passport/passportStrategies.js';
 import { Server } from 'socket.io';
 import handlebars from 'express-handlebars';
-import './DAL/dbConfig.js';
+import './DAL/mongoDB/dbConfig.js';
 import { MONGO_URI, PORT } from './config.js';
 import productsRouter from './routes/products.router.js';
 import cartsRouter from './routes/carts.router.js';
 import viewsRouter from './routes/views.router.js';
 import registerRouter from './routes/register.router.js';
-import ProductManager from '../src/DAL/ProductManagerMongo.js';
+import ProductManager from './DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 import sessionsRouter from './routes/sessions.router.js';
 
 const path = __dirname + '/products.json';

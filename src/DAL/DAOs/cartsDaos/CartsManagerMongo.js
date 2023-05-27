@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { cartModel } from './models/carts.model.js';
-import ProductManager from './ProductManagerMongo.js';
+import { cartModel } from '../../mongoDB/models/carts.model.js';
+import ProductManager from '../productsDaos/ProductsManagerMongo.js';
 
 class CartManager {
   getCartById = async (id) => {

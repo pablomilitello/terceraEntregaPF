@@ -1,4 +1,4 @@
-import CartManager from '../DAL/CartManagerMongo.js';
+import CartManager from '../DAL/DAOs/cartsDaos/CartsManagerMongo.js';
 import { __dirname } from '../utils.js';
 
 const path = __dirname + '/carts.json';

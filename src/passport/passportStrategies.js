@@ -1,10 +1,10 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GithubStrategy } from 'passport-github2';
-import { userModel } from '../DAL/models/users.model.js';
+import { userModel } from '../DAL/mongoDB/models/users.model.js';
 import { compareData, hashData } from '../utils.js';
-import UsersManager from '../DAL/UsersManagerMongo.js';
-import CartManager from '../DAL/CartManagerMongo.js';
+import UsersManager from '../DAL/DAOs/usersDaos/UsersManagerMongo.js';
+import CartManager from '../DAL/DAOs/cartsDaos/CartsManagerMongo.js';
 import { ADMIN_EMAIL, GITHUB_CALLBACK_URL, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '../config.js';
 
 const usersManager = new UsersManager();
