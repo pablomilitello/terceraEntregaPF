@@ -1,7 +1,4 @@
-import ProductManager from '../DAL/DAOs/productsDaos/ProductsManagerMongo.js';
-import { __dirname } from '../utils.js';
-const path = __dirname + '/products.json';
-const productManager = new ProductManager(path);
+import { productManager } from '../DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 
 export const getHome = async (req, res) => {
   try {

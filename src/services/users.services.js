@@ -1,9 +1,4 @@
-import UsersManager from '../DAL/DAOs/usersDaos/UsersManagerMongo.js';
-import { __dirname } from '../utils.js';
-
-const path = __dirname + '/users.json';
-
-const usersManager = new UsersManager(path);
+import { usersManager } from '../DAL/DAOs/usersDaos/UsersManagerMongo.js';
 
 export const findAllUsers = async () => {
   try {
@@ -16,7 +11,7 @@ export const findAllUsers = async () => {
 
 export const findById = async (id) => {
   try {
-    const user = await usersManager.findUserById(id);
+    const user = await usersManager.findOneById(id);
     return user;
   } catch (error) {
     return error;
@@ -25,7 +20,7 @@ export const findById = async (id) => {
 
 export const createOneUser = async (obj) => {
   try {
-    const newUser = await usersManager.createUser(obj);
+    const newUser = await usersManager.createOne(obj);
     return newUser;
   } catch (error) {
     return error;
@@ -34,7 +29,7 @@ export const createOneUser = async (obj) => {
 
 export const updateOneUser = async (id, obj) => {
   try {
-    const user = await usersManager.updateUser(id, obj);
+    const user = await usersManager.updateOne(id, obj);
     return user;
   } catch (error) {
     return error;
@@ -43,7 +38,7 @@ export const updateOneUser = async (id, obj) => {
 
 export const deleteUser = async (id) => {
   try {
-    const user = await usersManager.deleteOneUser(id);
+    const user = await usersManager.deleteOne(id);
     return user;
   } catch (error) {
     return error;

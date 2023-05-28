@@ -18,7 +18,7 @@ passport.use(
       usernameField: 'email',
     },
     async (email, password, done) => {
-      const user = await usersManager.loginUser(email);
+      const user = await usersManager.findByEmail(email);
       if (!user || !user.password) {
         return done(null, false);
       }
@@ -45,7 +45,7 @@ passport.use(
         return done(null, false);
       }
       const hashPassword = await hashData(password);
-      const newCart = await cartManager.addCarts();
+      const newCart = await cartManager.createOne();
       const newUser = { ...req.body, password: hashPassword, cart: newCart.id };
       if (email === ADMIN_EMAIL) {
         newUser.role = 'admin';
@@ -72,7 +72,7 @@ passport.use(
         if (userDB) {
           return done(null, userDB);
         }
-        const newCart = await cartManager.addCarts();
+        const newCart = await cartManager.createOne();
         const newUser = {
           firstName: profile._json.name.split(' ')[0],
           lastName: profile._json.name.split(' ')[1] || '',

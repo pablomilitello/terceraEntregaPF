@@ -1,13 +1,8 @@
-import CartManager from '../DAL/DAOs/cartsDaos/CartsManagerMongo.js';
-import { __dirname } from '../utils.js';
-
-const path = __dirname + '/carts.json';
-
-const cartManager = new CartManager(path);
+import { cartManager } from '../DAL/DAOs/cartsDaos/CartsManagerMongo.js';
 
 export const cartById = async (id) => {
   try {
-    const cart = await cartManager.getCartById(id);
+    const cart = await cartManager.findOneById(id);
     return cart;
   } catch (error) {
     return error;
@@ -16,7 +11,7 @@ export const cartById = async (id) => {
 
 export const cartByIdPopulated = async (id) => {
   try {
-    const cart = await cartManager.getCartById(id);
+    const cart = await cartManager.findOneByIdPopulated(id);
     return cart;
   } catch (error) {
     return error;
@@ -25,7 +20,7 @@ export const cartByIdPopulated = async (id) => {
 
 export const createOne = async () => {
   try {
-    const newCart = await cartManager.addCarts();
+    const newCart = await cartManager.createOne();
     return newCart;
   } catch (error) {
     return error;
@@ -52,7 +47,7 @@ export const deleteProduct = async (cid, pid) => {
 
 export const updateOne = async (id, products) => {
   try {
-    const cart = await cartManager.updateCart(id, products);
+    const cart = await cartManager.updateOne(id, products);
     return cart;
   } catch (error) {
     return error;

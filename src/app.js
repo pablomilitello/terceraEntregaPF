@@ -1,5 +1,4 @@
 import express from 'express';
-import { __dirname } from './utils.js';
 import session from 'express-session';
 import passport from 'passport';
 import mongoStore from 'connect-mongo';
@@ -15,9 +14,9 @@ import viewsRouter from './routes/views.router.js';
 import registerRouter from './routes/register.router.js';
 import ProductManager from './DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 import sessionsRouter from './routes/sessions.router.js';
+import { __dirname } from './utils.js';
 
-const path = __dirname + '/products.json';
-const productManager = new ProductManager(path);
+const productManager = new ProductManager();
 
 const app = express();
 
@@ -51,10 +50,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
-app.use('/api/products', productsRouter);
-app.use('/api/carts', cartsRouter);
+app.use('/register', registerRouter); //ok
+app.use('/api/products', productsRouter); //ok
+app.use('/api/carts', cartsRouter); //ok
 app.use('/views', viewsRouter);
-app.use('/register', registerRouter);
 app.use('/api/sessions', sessionsRouter);
 
 app.get('/createCookie', (req, res) => {

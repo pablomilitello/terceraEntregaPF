@@ -1,7 +1,12 @@
 import { productModel } from '../../mongoDB/models/products.model.js';
 import { TRUE, FALSE } from '../../../utils.js';
+import BasicManager from '../basicDaos/BasicManager.js';
 
-class ProductManager {
+export default class ProductManager extends BasicManager {
+  constructor(model) {
+    super(model);
+  }
+
   findAll = async (limit, page, sort, category, availability, lean = false) => {
     try {
       const options = { page, limit, lean };
@@ -25,37 +30,10 @@ class ProductManager {
     }
   };
 
-  findById = async (id) => {
-    try {
-      const product = await productModel.findOne({ _id: id });
-      return product;
-    } catch (error) {
-      return error;
-    }
-  };
-
-  createOne = async (obj) => {
-    try {
-      const newProduct = await productModel.create(obj);
-      return newProduct;
-    } catch (error) {
-      return error;
-    }
-  };
-
   aggregationFun = async () => {
     try {
       const response = await productModel.aggregate();
       return response;
-    } catch (error) {
-      return error;
-    }
-  };
-
-  updateOne = async (id, obj) => {
-    try {
-      const product = await productModel.findOneAndUpdate({ _id: id }, obj);
-      return product;
     } catch (error) {
       return error;
     }
@@ -69,15 +47,6 @@ class ProductManager {
       return error;
     }
   };
-
-  deleteOne = async (id) => {
-    try {
-      await productModel.deleteOne({ _id: id });
-      return 'Product deleted';
-    } catch (error) {
-      return error;
-    }
-  };
 }
 
-export default ProductManager;
+export const productManager = new ProductManager(productModel);

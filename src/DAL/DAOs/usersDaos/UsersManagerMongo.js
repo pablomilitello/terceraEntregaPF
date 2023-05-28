@@ -1,7 +1,16 @@
 import { userModel } from '../../mongoDB/models/users.model.js';
+import BasicManager from '../basicDaos/BasicManager.js';
+export default class UsersManager extends BasicManager {
+  async findByEmail(email) {
+    try {
+      const user = await userModel.findOne({ email });
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
 
-class UsersManager {
-  async createUser(user) {
+  async createOne(user) {
     const { email, password } = user;
     try {
       const existUser = await userModel.find({ email, password });
@@ -15,42 +24,6 @@ class UsersManager {
       return error;
     }
   }
-
-  async loginUser(email) {
-    try {
-      const user = await userModel.findOne({ email });
-      return user;
-    } catch (error) {
-      return error;
-    }
-  }
-
-  async findUserById(id) {
-    try {
-      const user = await userModel.findById(id);
-      return user;
-    } catch (error) {
-      return error;
-    }
-  }
-
-  async updateUser(id, obj) {
-    try {
-      const updateUser = await userModel.updateOne({ _id: id }, { $set: obj });
-      return updateUser;
-    } catch (error) {
-      return error;
-    }
-  }
-
-  async deleteUser(id) {
-    try {
-      const deleteUser = await userModel.deleteOne(id);
-      return deleteUser;
-    } catch (error) {
-      return error;
-    }
-  }
 }
 
-export default UsersManager;
+export const userManager = new UsersManager(userModel);

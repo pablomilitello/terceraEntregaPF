@@ -88,10 +88,12 @@ export const updateCart = async (req, res) => {
     const cart = await cartById(cid);
     if (!cart) {
       res.status(400).json({ message: 'Cart does not exist' });
+      return;
     }
     const products = req.body;
     if (!Array.isArray(products)) {
       res.status(400).json({ message: 'Products must be an array' });
+      return;
     }
     const newCart = await updateOne(cid, products);
     res.status(200).json(newCart);

@@ -1,9 +1,4 @@
-import ProductManager from '../DAL/DAOs/productsDaos/ProductsManagerMongo.js';
-import { __dirname } from '../utils.js';
-
-const path = __dirname + '/products.json';
-
-const productManager = new ProductManager(path);
+import { productManager } from '../DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 
 export const findAllProducts = async (limit, page, sort, category, availability) => {
   try {
@@ -16,7 +11,7 @@ export const findAllProducts = async (limit, page, sort, category, availability)
 
 export const findProductById = async (id) => {
   try {
-    const product = await productManager.findById(id);
+    const product = await productManager.findOneById(id);
     return product;
   } catch (error) {
     return error;
