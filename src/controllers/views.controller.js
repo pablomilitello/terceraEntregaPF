@@ -2,7 +2,7 @@ import { productManager } from '../DAL/DAOs/productsDaos/ProductsManagerMongo.js
 
 export const getHome = async (req, res) => {
   try {
-    const products = await productManager.getProducts(100, 0, undefined, undefined, undefined, true);
+    const products = await productManager.findAll(100, 0, undefined, undefined, undefined, true);
     res.render('home', { products: products.docs });
   } catch (error) {
     console.log(error);
@@ -11,7 +11,7 @@ export const getHome = async (req, res) => {
 };
 
 export const getProducts = async (req, res) => {
-  const { limit = 10, page = 0 } = req.query;
+  const { limit = 5, page = 0 } = req.query;
   const products = await productManager.findAll(limit, page, undefined, undefined, undefined, true);
   res.render('products', {
     products: products.docs,
@@ -24,7 +24,11 @@ export const getProducts = async (req, res) => {
 
 export const getRealTimeProducts = async (req, res) => {
   const products = await productManager.findAll(100, 0, undefined, undefined, undefined, true);
-  res.render('realTimeProducts', { products: products.docs, firstName: req.user.firstName });
+  if (req.user == undefined) {
+    res.render('realTimeProducts', { products: products.docs });
+  } else {
+    res.render('realTimeProducts', { products: products.docs, firstName: req.user.firstName });
+  }
 };
 
 export const getChat = async (req, res) => {
