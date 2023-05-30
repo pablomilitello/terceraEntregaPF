@@ -51,7 +51,7 @@ app.use(passport.session());
 app.use('/register', registerRouter); //ok
 app.use('/api/products', productsRouter); //ok
 app.use('/api/carts', cartsRouter); //ok
-app.use('/views', viewsRouter);
+app.use('/views', viewsRouter); //ok
 app.use('/api/sessions', sessionsRouter);
 
 app.get('/createCookie', (req, res) => {
