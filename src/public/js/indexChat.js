@@ -48,7 +48,7 @@ export const chat = socketClient.on('chat', (info) => {
 
 //Nuevo usuario conectado
 socketClient.on('broadcastChat', (user) => {
-  Toastify({
+  StartToastifyInstance({
     text: `${user} connected`,
     duration: 5000,
     position: 'right', // `left`, `center` or `right`

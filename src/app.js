@@ -12,11 +12,9 @@ import productsRouter from './routes/products.router.js';
 import cartsRouter from './routes/carts.router.js';
 import viewsRouter from './routes/views.router.js';
 import registerRouter from './routes/register.router.js';
-import ProductManager from './DAL/DAOs/productsDaos/ProductsManagerMongo.js';
+import { productManager } from './DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 import sessionsRouter from './routes/sessions.router.js';
 import { __dirname } from './utils.js';
-
-const productManager = new ProductManager();
 
 const app = express();
 
