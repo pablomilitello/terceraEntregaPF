@@ -48,10 +48,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
-app.use('/register', registerRouter); //ok
-app.use('/api/products', productsRouter); //ok
-app.use('/api/carts', cartsRouter); //ok
-app.use('/views', viewsRouter); //ok
+app.use('/register', registerRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
+app.use('/views', viewsRouter);
 app.use('/api/sessions', sessionsRouter);
 
 app.get('/createCookie', (req, res) => {
