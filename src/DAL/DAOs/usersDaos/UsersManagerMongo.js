@@ -6,7 +6,7 @@ export default class UsersManager extends BasicManager {
       const user = await userModel.findOne({ email });
       return user;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -21,7 +21,7 @@ export default class UsersManager extends BasicManager {
         return null;
       }
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 }

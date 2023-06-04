@@ -5,7 +5,7 @@ export const cartById = async (id) => {
     const cart = await cartManager.findOneById(id);
     return cart;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -14,7 +14,7 @@ export const cartByIdPopulated = async (id) => {
     const cart = await cartManager.findOneByIdPopulated(id);
     return cart;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -23,7 +23,7 @@ export const createOne = async () => {
     const newCart = await cartManager.createOne();
     return newCart;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -32,7 +32,7 @@ export const productsToCart = async (cid, pid) => {
     const cart = await cartManager.addProductsToCart(cid, pid);
     return cart;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -41,7 +41,7 @@ export const deleteProduct = async (cid, pid) => {
     const cart = await cartManager.deleteProductFromCart(cid, pid);
     return cart;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -50,7 +50,7 @@ export const updateOne = async (id, products) => {
     const cart = await cartManager.updateOne(id, products);
     return cart;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -59,7 +59,7 @@ export const updateOneProduct = async (id, pid, quantity) => {
     const cart = await cartManager.updateCartProduct(id, pid, quantity);
     return cart;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -68,6 +68,6 @@ export const deleteAllProducts = async (id) => {
     const cart = await cartManager.deleteAllProductsFromCart(id);
     return cart;
   } catch (error) {
-    return error;
+    throw error;
   }
 };

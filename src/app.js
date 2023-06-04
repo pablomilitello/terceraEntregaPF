@@ -90,15 +90,6 @@ socketServer.on('connection', (socket) => {
     console.log(`Client disconected id: ${socket.id}`);
   });
 
-  socket.on('addNewProduct', async (product) => {
-    await productManager.createOne(product);
-  });
-
-  socket.on('deleteProduct', (id) => {
-    console.log(`Product deleted ${id}`);
-    productManager.deleteOne(id);
-  });
-
   socket.on('message', (info) => {
     messages.push(info);
     socketServer.emit('chat', messages);

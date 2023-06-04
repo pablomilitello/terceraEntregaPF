@@ -26,7 +26,7 @@ export default class ProductManager extends BasicManager {
       const products = await productModel.paginate(query, options);
       return products;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -35,7 +35,7 @@ export default class ProductManager extends BasicManager {
       const response = await productModel.aggregate();
       return response;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -44,7 +44,7 @@ export default class ProductManager extends BasicManager {
       await productModel.deleteMany();
       return 'Products deleted';
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 }

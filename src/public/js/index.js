@@ -9,7 +9,7 @@ const inputPrice = document.getElementById('pPrice');
 const inputCode = document.getElementById('pCode');
 const inputStock = document.getElementById('pStock');
 
-addProduct.addEventListener('click', (e) => {
+addProduct.addEventListener('click', async (e) => {
   e.preventDefault();
   const newProduct = {
     title: inputTitle.value,
@@ -21,18 +21,29 @@ addProduct.addEventListener('click', (e) => {
     stock: inputStock.value,
     status: true,
   };
-  socketClient.emit('addNewProduct', newProduct);
-  console.log('Product added');
+  await fetch('/api/products/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newProduct),
+  });
   document.location.reload();
 });
 
 const deleteProduct = document.getElementById('productsTable');
-deleteProduct.addEventListener('click', (e) => {
+deleteProduct.addEventListener('click', async (e) => {
   e.preventDefault();
   const element = e.target;
   const productId = element.getAttribute('data-id');
   if (element.className === 'delete') {
-    socketClient.emit('deleteProduct', productId);
-    document.location.reload();
+    try {
+      await fetch(`/api/products/${productId}`, {
+        method: 'DELETE',
+      });
+      document.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
   }
 });

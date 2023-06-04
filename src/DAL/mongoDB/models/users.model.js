@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+export const ROLE_USER = 'user';
+export const ROLE_ADMIN = 'admin';
+
 const usersSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -26,14 +29,8 @@ const usersSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'user',
+    default: ROLE_USER,
   },
-  orders: [
-    {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Orders',
-    },
-  ],
 });
 
 export const userModel = mongoose.model('Users', usersSchema);

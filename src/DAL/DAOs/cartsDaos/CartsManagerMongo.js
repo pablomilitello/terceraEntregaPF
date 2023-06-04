@@ -12,7 +12,7 @@ export default class CartManager extends BasicManager {
       const cart = await cartsModel.findOne({ _id: id }).populate('products.product');
       return cart;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -21,7 +21,7 @@ export default class CartManager extends BasicManager {
       const newCarts = await cartsModel.create({ products: [] });
       return newCarts;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -48,7 +48,7 @@ export default class CartManager extends BasicManager {
         return cart;
       }
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -63,7 +63,7 @@ export default class CartManager extends BasicManager {
       cart.save();
       return cart;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -77,7 +77,7 @@ export default class CartManager extends BasicManager {
       }
       return cart;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -91,7 +91,7 @@ export default class CartManager extends BasicManager {
       cart.save();
       return cart;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 }

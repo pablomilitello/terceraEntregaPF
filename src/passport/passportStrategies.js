@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GithubStrategy } from 'passport-github2';
-import { userModel } from '../DAL/mongoDB/models/users.model.js';
+import { ROLE_ADMIN, userModel } from '../DAL/mongoDB/models/users.model.js';
 import { compareData, hashData } from '../utils.js';
 import UsersManager from '../DAL/DAOs/usersDaos/UsersManagerMongo.js';
 import CartManager from '../DAL/DAOs/cartsDaos/CartsManagerMongo.js';
@@ -48,7 +48,7 @@ passport.use(
       const newCart = await cartManager.createOne();
       const newUser = { ...req.body, password: hashPassword, cart: newCart.id };
       if (email === ADMIN_EMAIL) {
-        newUser.role = 'admin';
+        newUser.role = ROLE_ADMIN;
       }
       const newUserDB = await userModel.create(newUser);
       done(null, newUserDB);
