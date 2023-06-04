@@ -60,7 +60,7 @@ export default class CartManager extends BasicManager {
         throw new Error("Error: Cart doesn't exist");
       }
       cart.products = cart.products.filter(({ product }) => !product.equals(pid));
-      cart.save();
+      await cart.save();
       return cart;
     } catch (error) {
       throw error;
@@ -88,7 +88,7 @@ export default class CartManager extends BasicManager {
         throw new Error("Error: Cart doesn't exist");
       }
       cart.products = [];
-      cart.save();
+      await cart.save();
       return cart;
     } catch (error) {
       throw error;

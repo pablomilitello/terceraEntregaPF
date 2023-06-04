@@ -1,4 +1,5 @@
 import { cartManager } from '../DAL/DAOs/cartsDaos/CartsManagerMongo.js';
+import { ticketManager } from '../DAL/DAOs/ticketDaos/TicketsManagerMongo.js';
 
 export const cartById = async (id) => {
   try {
@@ -70,4 +71,25 @@ export const deleteAllProducts = async (id) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const purchaseCart = async (cart, user) => {
+  let amount = 0;
+  const productsWithoutStock = [];
+  for (const cartItem of cart.products) {
+    if (cartItem.quantity <= cartItem.product.stock) {
+      cartItem.product.stock -= cartItem.quantity;
+      await cartItem.product.save();
+      amount += cartItem.product.price * cartItem.quantity;
+    } else {
+      productsWithoutStock.push(cartItem.product.id.toString());
+    }
+  }
+
+  cart.products = cart.products.filter((cartItem) => productsWithoutStock.includes(cartItem.product.id.toString()));
+  await cart.save();
+
+  const ticket = { amount, purchaser: user.email };
+  const ticketResponse = await ticketManager.createOne(ticket);
+  return { ticket: ticketResponse, productsWithoutStock };
 };

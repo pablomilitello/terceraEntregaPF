@@ -5,6 +5,7 @@ import {
   deleteAllProducts,
   deleteProduct,
   productsToCart,
+  purchaseCart,
   updateOne,
   updateOneProduct,
 } from '../services/carts.services.js';
@@ -132,11 +133,13 @@ export const purchase = async (req, res) => {
     const { cid } = req.params;
     const cart = await cartByIdPopulated(cid);
     if (!cart) {
-      res.json({ message: 'Cart does not exist' });
+      res.status(400).json({ message: 'Cart does not exist' });
       return;
     }
+    const result = await purchaseCart(cart, req.user);
+    res.status(200).json(result);
   } catch (error) {
     console.error(error);
-    res.status(500).json('cart search error');
+    res.status(500).json('purchase error');
   }
 };
