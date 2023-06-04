@@ -98,7 +98,7 @@ export const getProductById = async (req, res) => {
       res.json(product);
     }
   } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(500).json({ error: 'Product search error' });
   }
 };
@@ -109,7 +109,7 @@ export const addProducts = async (req, res) => {
     const newProduct = await createOneProduct(obj);
     res.status(201).json({ message: 'Product created', product: newProduct });
   } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(400).json({ error: 'It was not possible to add the product' });
   }
 };
@@ -121,7 +121,7 @@ export const updateProduct = async (req, res) => {
     const product = await updateOneProduct(pid, obj);
     res.status(201).json({ product });
   } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(500).json({ error: 'Error updating the product' });
   }
 };
@@ -129,9 +129,9 @@ export const updateProduct = async (req, res) => {
 export const deleteProducts = async (req, res) => {
   try {
     const response = await deleteAllProducts();
-    res.status(201).json({ response });
+    res.status(200).json({ response });
   } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(500).json({ error: 'It was not possible to delete the products' });
   }
 };
@@ -140,9 +140,9 @@ export const deleteProductsById = async (req, res) => {
   try {
     const { pid } = req.params;
     const products = await deleteOneProduct(pid);
-    res.status(201).json({ products });
+    res.status(200).json({ products });
   } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(500).json({ error: 'It was not possible to delete the product' });
   }
 };

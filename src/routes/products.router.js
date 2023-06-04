@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { __dirname } from '../utils.js';
 import {
   addProducts,
   deleteProducts,
@@ -8,14 +7,15 @@ import {
   getProducts,
   updateProduct,
 } from '../controllers/products.controller.js';
+import { authAdmin } from '../middlewares/auth.js';
 
 const router = Router();
 
 router.get('/', getProducts);
 router.get('/:pid', getProductById);
-router.post('/', addProducts);
-router.put('/:pid', updateProduct);
-router.delete('/', deleteProducts);
-router.delete('/:pid', deleteProductsById);
+router.post('/', authAdmin, addProducts);
+router.put('/:pid', authAdmin, updateProduct);
+router.delete('/', authAdmin, deleteProducts);
+router.delete('/:pid', authAdmin, deleteProductsById);
 
 export default router;

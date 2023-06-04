@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 var subSchema = mongoose.Schema(
   {
@@ -12,4 +12,4 @@ const cartsSchema = new mongoose.Schema({
   products: [subSchema],
 });
 
-export const cartModel = mongoose.model('Carts', cartsSchema);
+export const cartsModel = mongoose.model('Carts', cartsSchema);

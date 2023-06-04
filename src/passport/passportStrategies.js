@@ -1,10 +1,10 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GithubStrategy } from 'passport-github2';
-import { userModel } from '../DAL/models/users.model.js';
+import { ROLE_ADMIN, userModel } from '../DAL/mongoDB/models/users.model.js';
 import { compareData, hashData } from '../utils.js';
-import UsersManager from '../DAL/UsersManagerMongo.js';
-import CartManager from '../DAL/CartManagerMongo.js';
+import UsersManager from '../DAL/DAOs/usersDaos/UsersManagerMongo.js';
+import CartManager from '../DAL/DAOs/cartsDaos/CartsManagerMongo.js';
 import { ADMIN_EMAIL, GITHUB_CALLBACK_URL, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '../config.js';
 
 const usersManager = new UsersManager();
@@ -18,7 +18,7 @@ passport.use(
       usernameField: 'email',
     },
     async (email, password, done) => {
-      const user = await usersManager.loginUser(email);
+      const user = await usersManager.findByEmail(email);
       if (!user || !user.password) {
         return done(null, false);
       }
@@ -45,10 +45,10 @@ passport.use(
         return done(null, false);
       }
       const hashPassword = await hashData(password);
-      const newCart = await cartManager.addCarts();
+      const newCart = await cartManager.createOne();
       const newUser = { ...req.body, password: hashPassword, cart: newCart.id };
       if (email === ADMIN_EMAIL) {
-        newUser.role = 'admin';
+        newUser.role = ROLE_ADMIN;
       }
       const newUserDB = await userModel.create(newUser);
       done(null, newUserDB);
@@ -72,7 +72,7 @@ passport.use(
         if (userDB) {
           return done(null, userDB);
         }
-        const newCart = await cartManager.addCarts();
+        const newCart = await cartManager.createOne();
         const newUser = {
           firstName: profile._json.name.split(' ')[0],
           lastName: profile._json.name.split(' ')[1] || '',

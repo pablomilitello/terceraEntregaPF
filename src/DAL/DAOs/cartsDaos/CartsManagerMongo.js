@@ -1,47 +1,40 @@
 import mongoose from 'mongoose';
-import { cartModel } from './models/carts.model.js';
-import ProductManager from './ProductManagerMongo.js';
+import { cartsModel } from '../../mongoDB/models/carts.model.js';
+import { productManager } from '../productsDaos/ProductsManagerMongo.js';
+import BasicManager from '../basicDaos/BasicManager.js';
+export default class CartManager extends BasicManager {
+  constructor(model) {
+    super(model);
+  }
 
-class CartManager {
-  getCartById = async (id) => {
+  findOneByIdPopulated = async (id) => {
     try {
-      const cart = await cartModel.findOne({ _id: id });
+      const cart = await cartsModel.findOne({ _id: id }).populate('products.product');
       return cart;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
-  getCartByIdPopulated = async (id) => {
+  async createOne() {
     try {
-      const cart = await cartModel.findOne({ _id: id }).populate('products.product');
-      return cart;
-    } catch (error) {
-      return error;
-    }
-  };
-
-  addCarts = async () => {
-    try {
-      const newCarts = await cartModel.create({ products: [] });
+      const newCarts = await cartsModel.create({ products: [] });
       return newCarts;
     } catch (error) {
-      return error;
+      throw error;
     }
-  };
+  }
 
   addProductsToCart = async (cid, pid) => {
     try {
-      const cart = await this.getCartById(cid);
+      const cart = await cartsModel.findById(cid);
       if (!cart) {
         return "Error: Cart doesn't exist";
       } else {
-        const productManager = new ProductManager();
-        const prod = await productManager.findById(pid);
+        const prod = await productManager.findOneById(pid);
         if (!prod) {
           return "Error: Product doesn't exist";
         }
-
         const productItem = cart.products.find((p) => p.product.equals(pid));
         if (!productItem) {
           cart.products.push({
@@ -51,44 +44,32 @@ class CartManager {
         } else {
           productItem.quantity++;
         }
-        await cartModel.findOneAndUpdate({ _id: cid }, cart);
+        await cartsModel.findOneAndUpdate({ _id: cid }, cart);
         return cart;
       }
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
   deleteProductFromCart = async (cid, pid) => {
     try {
-      const cart = await this.getCartById(cid);
+      const cart = await cartsModel.findById(cid);
+
       if (!cart) {
         throw new Error("Error: Cart doesn't exist");
       }
       cart.products = cart.products.filter(({ product }) => !product.equals(pid));
-      cart.save();
+      await cart.save();
       return cart;
     } catch (error) {
-      return error;
-    }
-  };
-
-  updateCart = async (id, products) => {
-    try {
-      const cart = await cartModel.findOneAndUpdate(
-        { _id: id },
-        { products },
-        { new: true } // return the updated document instead of the old one
-      );
-      return cart;
-    } catch (error) {
-      return error;
+      throw error;
     }
   };
 
   updateCartProduct = async (id, pid, quantity) => {
     try {
-      const cart = await cartModel.findOne({ _id: id });
+      const cart = await cartsModel.findOne({ _id: id });
       const product = cart.products.find(({ product }) => product.equals(pid));
       if (product) {
         product.quantity = quantity;
@@ -96,23 +77,23 @@ class CartManager {
       }
       return cart;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
   deleteAllProductsFromCart = async (id) => {
     try {
-      const cart = await this.getCartById(id);
+      const cart = await cartsModel.findById(id);
       if (!cart) {
         throw new Error("Error: Cart doesn't exist");
       }
       cart.products = [];
-      cart.save();
+      await cart.save();
       return cart;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 }
 
-export default CartManager;
+export const cartManager = new CartManager(cartsModel);

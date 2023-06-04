@@ -1,5 +1,4 @@
 import express from 'express';
-import { __dirname } from './utils.js';
 import session from 'express-session';
 import passport from 'passport';
 import mongoStore from 'connect-mongo';
@@ -7,17 +6,15 @@ import cookieParser from 'cookie-parser';
 import './passport/passportStrategies.js';
 import { Server } from 'socket.io';
 import handlebars from 'express-handlebars';
-import './DAL/dbConfig.js';
+import './DAL/mongoDB/dbConfig.js';
 import { MONGO_URI, PORT } from './config.js';
 import productsRouter from './routes/products.router.js';
 import cartsRouter from './routes/carts.router.js';
 import viewsRouter from './routes/views.router.js';
 import registerRouter from './routes/register.router.js';
-import ProductManager from '../src/DAL/ProductManagerMongo.js';
+import { productManager } from './DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 import sessionsRouter from './routes/sessions.router.js';
-
-const path = __dirname + '/products.json';
-const productManager = new ProductManager(path);
+import { __dirname } from './utils.js';
 
 const app = express();
 
@@ -51,10 +48,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
+app.use('/register', registerRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/views', viewsRouter);
-app.use('/register', registerRouter);
 app.use('/api/sessions', sessionsRouter);
 
 app.get('/createCookie', (req, res) => {
@@ -91,15 +88,6 @@ socketServer.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log(`Client disconected id: ${socket.id}`);
-  });
-
-  socket.on('addNewProduct', async (product) => {
-    await productManager.createOne(product);
-  });
-
-  socket.on('deleteProduct', (id) => {
-    console.log(`Product deleted ${id}`);
-    productManager.deleteOne(id);
   });
 
   socket.on('message', (info) => {

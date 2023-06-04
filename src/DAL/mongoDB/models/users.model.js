@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+export const ROLE_USER = 'user';
+export const ROLE_ADMIN = 'admin';
+
 const usersSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -21,12 +24,12 @@ const usersSchema = new mongoose.Schema({
     type: String,
   },
   cart: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     ref: 'Carts',
   },
   role: {
     type: String,
-    default: 'user',
+    default: ROLE_USER,
   },
 });
 
