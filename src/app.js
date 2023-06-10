@@ -12,9 +12,9 @@ import productsRouter from './routes/products.router.js';
 import cartsRouter from './routes/carts.router.js';
 import viewsRouter from './routes/views.router.js';
 import registerRouter from './routes/register.router.js';
-import { productManager } from './DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 import sessionsRouter from './routes/sessions.router.js';
 import { __dirname } from './utils.js';
+import { errorMiddleware } from './services/errors/error.middleware.js';
 
 const app = express();
 
@@ -75,6 +75,8 @@ app.get('/readCookieSigned', (req, res) => {
   const { cookieSigned1 } = req.signedCookies;
   res.json({ message: 'Cookies Signed', cookieSigned1 });
 });
+
+app.use(errorMiddleware);
 
 //Configuro el SocketServer
 const httpServer = app.listen(PORT, () => console.log(`Listen in port ${PORT}`));
