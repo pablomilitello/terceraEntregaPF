@@ -15,6 +15,7 @@ import registerRouter from './routes/register.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 import { __dirname } from './utils.js';
 import { errorMiddleware } from './services/errors/error.middleware.js';
+import { generateProduct } from '../test/mockProducts.test.js';
 
 const app = express();
 
@@ -53,6 +54,16 @@ app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/views', viewsRouter);
 app.use('/api/sessions', sessionsRouter);
+
+//Debo rotear esto mocking
+app.get('/mockingproducts', (req, res) => {
+  const products = [];
+  for (let i = 0; i > 100; i++) {
+    const productsMock = generateProduct();
+    products.push(productsMock);
+  }
+  res.json(products);
+});
 
 app.get('/createCookie', (req, res) => {
   res.cookie('cookie2', 'Second Cookie').send('Cookie added');
