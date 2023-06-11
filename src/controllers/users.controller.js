@@ -36,8 +36,10 @@ export const githubAuthenticate = (req, res) => {
 
 export const currentSession = (req, res) => {
   if (!req.user) {
-    res.status(400).json('Session expired');
-    return;
+    CustomError.createCustomError({
+      message: ErrorMessage.SESSION_EXPIRED,
+      status: 400,
+    });
   }
   const user = { ...req.user._doc };
   delete user.password;

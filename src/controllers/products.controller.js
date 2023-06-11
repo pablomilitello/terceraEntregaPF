@@ -1,3 +1,5 @@
+import CustomError from '../services/errors/CustomError.js';
+import { ErrorMessage } from '../services/errors/error.enum.js';
 import {
   createOneProduct,
   deleteAllProducts,
@@ -8,29 +10,37 @@ import {
 } from '../services/products.services.js';
 import { validateBoolean, validateInteger, validateSort } from '../utils.js';
 
-export const getProducts = async (req, res) => {
+export const getProducts = async (req, res, next) => {
   try {
     const { limit = 10, page = 1, category, availability } = req.query;
 
     if (!validateInteger(limit, 1, 200)) {
-      res.status(400).json('wrong limit');
-      return;
+      CustomError.createCustomError({
+        message: ErrorMessage.WRONG_LIMIT,
+        status: 400,
+      });
     }
     if (!validateInteger(page, 1, 10000)) {
-      res.status(400).json('wrong page');
-      return;
+      CustomError.createCustomError({
+        message: ErrorMessage.WRONG_PAGE,
+        status: 400,
+      });
     }
 
     if (availability && !validateBoolean(availability)) {
-      res.status(400).json('wrong availability');
-      return;
+      CustomError.createCustomError({
+        message: ErrorMessage.WRONG_AVAILABILITY,
+        status: 400,
+      });
     }
 
     let { sort } = req.query;
     sort = sort?.toLowerCase();
     if (sort && !validateSort(sort)) {
-      res.status(400).json('wrong sort');
-      return;
+      CustomError.createCustomError({
+        message: ErrorMessage.WRONG_SORT,
+        status: 400,
+      });
     }
 
     const { docs, totalPages, hasPrevPage, hasNextPage, prevPage, nextPage } = await findAllProducts(
@@ -83,66 +93,63 @@ export const getProducts = async (req, res) => {
     };
     res.status(200).json(response);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ status: 'error', message: 'product search error' });
+    next(error);
   }
 };
 
-export const getProductById = async (req, res) => {
+export const getProductById = async (req, res, next) => {
   try {
     const { pid } = req.params;
     const product = await findProductById(pid);
     if (!product) {
-      res.json({ message: 'Product does not exist' });
+      CustomError.createCustomError({
+        message: ErrorMessage.PRODUCT_NOT_FOUND,
+        status: 404,
+      });
     } else {
       res.json(product);
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Product search error' });
+    next(error);
   }
 };
 
-export const addProducts = async (req, res) => {
+export const addProducts = async (req, res, next) => {
   try {
     const obj = req.body;
     const newProduct = await createOneProduct(obj);
     res.status(201).json({ message: 'Product created', product: newProduct });
   } catch (error) {
-    console.error(error);
-    res.status(400).json({ error: 'It was not possible to add the product' });
+    next(error);
   }
 };
 
-export const updateProduct = async (req, res) => {
+export const updateProduct = async (req, res, next) => {
   try {
     const { pid } = req.params;
     const obj = req.body;
     const product = await updateOneProduct(pid, obj);
     res.status(201).json({ product });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error updating the product' });
+    next(error);
   }
 };
 
-export const deleteProducts = async (req, res) => {
+export const deleteProducts = async (req, res, next) => {
   try {
     const response = await deleteAllProducts();
     res.status(200).json({ response });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'It was not possible to delete the products' });
+    next(error);
   }
 };
 
-export const deleteProductsById = async (req, res) => {
+export const deleteProductsById = async (req, res, next) => {
   try {
     const { pid } = req.params;
     const products = await deleteOneProduct(pid);
     res.status(200).json({ products });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'It was not possible to delete the product' });
+    next(error);
   }
 };

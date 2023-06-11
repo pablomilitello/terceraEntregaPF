@@ -4,47 +4,27 @@ export default class BasicManager {
   }
 
   async findAll() {
-    try {
-      const response = await this.model.find();
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const response = await this.model.find();
+    return response;
   }
 
   async findOneById(id) {
-    try {
-      const response = await this.model.findById(id);
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const response = await this.model.findById(id);
+    return response;
   }
 
   async createOne(obj) {
-    try {
-      const response = await this.model.create(obj);
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const response = await this.model.create(obj);
+    return response;
   }
 
   async updateOne(id, obj) {
-    try {
-      const response = await this.model.findOneAndUpdate({ _id: id }, { $set: obj });
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const response = await this.model.findOneAndUpdate({ _id: id }, { $set: obj });
+    return response;
   }
 
   async deleteOne(id) {
-    try {
-      const response = await this.model.deleteOne({ _id: id });
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const response = await this.model.deleteOne({ _id: id });
+    return response;
   }
 }

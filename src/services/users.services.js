@@ -1,46 +1,26 @@
 import { usersManager } from '../DAL/DAOs/usersDaos/UsersManagerMongo.js';
 
 export const findAllUsers = async () => {
-  try {
-    const users = await usersManager.findAll();
-    return users;
-  } catch (error) {
-    throw error;
-  }
+  const users = await usersManager.findAll();
+  return users;
 };
 
 export const findById = async (id) => {
-  try {
-    const user = await usersManager.findOneById(id);
-    return user;
-  } catch (error) {
-    throw error;
-  }
+  const user = await usersManager.findOneById(id);
+  return user;
 };
 
 export const createOneUser = async (obj) => {
-  try {
-    const newUser = await usersManager.createOne(obj);
-    return newUser;
-  } catch (error) {
-    throw error;
-  }
+  const newUser = await usersManager.createOne(obj);
+  return newUser;
 };
 
 export const updateOneUser = async (id, obj) => {
-  try {
-    const user = await usersManager.updateOne(id, obj);
-    return user;
-  } catch (error) {
-    throw error;
-  }
+  const user = await usersManager.updateOne(id, obj);
+  return user;
 };
 
 export const deleteUser = async (id) => {
-  try {
-    const user = await usersManager.deleteOne(id);
-    return user;
-  } catch (error) {
-    throw error;
-  }
+  const user = await usersManager.deleteOne(id);
+  return user;
 };

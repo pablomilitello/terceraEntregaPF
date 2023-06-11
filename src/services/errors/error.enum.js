@@ -1,16 +1,16 @@
-export const ErrorsName = {
-  PRINCIPAL_ERROR_NAME: 'Error de prueba 1',
-  ROUTING_ERROR: 'Error routing',
+export const ErrorName = {
+  ERROR: 'Error',
 };
 
-export const ErrorsMessage = {
-  PRINCIPAL_PRODUCT_MESSAGE: 'agregar error',
-  PRINCIPAL_USER_MESSAGE: 'agregar error',
-  PRINCIPAL_CART_MESSAGE: 'agregar error',
-};
-
-export const ErrorsCause = {
-  PRINCIPAL_PRODUCT_CAUSE: 'agregar error',
-  PRINCIPAL_USER_CAUSE: 'agregar error',
-  PRINCIPAL_CART_CAUSE: 'agregar error',
+export const ErrorMessage = {
+  PRODUCT_NOT_FOUND: 'Product does not exist',
+  PRODUCT_ARRAY: 'Products must be an array',
+  CART_NOT_FOUND: 'Cart does not exist',
+  WRONG_BODY: 'Wrong body',
+  WRONG_QUANTITY: 'Wrong quantity',
+  WRONG_LIMIT: 'Wrong limit',
+  WRONG_PAGE: 'Wrong page',
+  WRONG_AVAILABILITY: 'wrong availability',
+  WRONG_SORT: 'wrong sort',
+  SESSION_EXPIRED: 'Session expired',
 };
