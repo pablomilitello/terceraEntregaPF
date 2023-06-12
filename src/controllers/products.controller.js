@@ -106,8 +106,9 @@ export const getProductById = async (req, res, next) => {
         message: ErrorMessage.PRODUCT_NOT_FOUND,
         status: 404,
       });
+      console.log('pasa por acá');
     } else {
-      res.json(product);
+      res.status(200).json(product);
     }
   } catch (error) {
     next(error);
