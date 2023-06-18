@@ -14,7 +14,8 @@ import viewsRouter from './routes/views.router.js';
 import registerRouter from './routes/register.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 import mockingProductsRouter from './routes/mockingProducts.router.js';
-import { __dirname } from './utils.js';
+import loggerTestRouter from './routes/loggerTestRouter.js';
+import { __dirname } from './utils/utils.js';
 import { errorMiddleware } from './services/errors/error.middleware.js';
 
 const app = express();
@@ -55,6 +56,7 @@ app.use('/api/carts', cartsRouter);
 app.use('/views', viewsRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/mockingproducts', mockingProductsRouter);
+app.use('/loggerTest', loggerTestRouter);
 
 app.get('/createCookie', (req, res) => {
   res.cookie('cookie2', 'Second Cookie').send('Cookie added');

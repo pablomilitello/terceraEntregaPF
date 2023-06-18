@@ -8,7 +8,7 @@ import {
   findProductById,
   updateOneProduct,
 } from '../services/products.services.js';
-import { validateBoolean, validateInteger, validateSort } from '../utils.js';
+import { validateBoolean, validateInteger, validateSort } from '../utils/utils.js';
 
 export const getProducts = async (req, res, next) => {
   try {
@@ -106,7 +106,6 @@ export const getProductById = async (req, res, next) => {
         message: ErrorMessage.PRODUCT_NOT_FOUND,
         status: 404,
       });
-      console.log('pasa por acá');
     } else {
       res.status(200).json(product);
     }

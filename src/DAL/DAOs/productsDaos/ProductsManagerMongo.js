@@ -1,5 +1,5 @@
 import { productModel } from '../../mongoDB/models/products.model.js';
-import { TRUE, FALSE } from '../../../utils.js';
+import { TRUE, FALSE } from '../../../utils/utils.js';
 import BasicManager from '../basicDaos/BasicManager.js';
 
 export default class ProductManager extends BasicManager {

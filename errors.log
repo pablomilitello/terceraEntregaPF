@@ -1,0 +1,41 @@
+
+{
+  message: 'Mostrando log fatal',
+  level: 'fatal',
+  timestamp: '2023-06-18T00:49:18.674Z'
+}
+{
+  message: 'Mostrando log fatal',
+  level: 'fatal',
+  timestamp: '2023-06-18T00:52:25.043Z'
+}
+{
+  message: 'Mostrando log fatal',
+  level: 'fatal',
+  timestamp: '2023-06-18T00:58:55.158Z'
+}
+{
+  message: 'Mostrando log fatal',
+  level: 'fatal',
+  timestamp: '2023-06-18T01:00:04.008Z'
+}
+{
+  message: 'Mostrando log error',
+  level: 'error',
+  timestamp: '2023-06-18T01:00:04.011Z'
+}
+{
+  message: 'Mostrando log fatal',
+  level: 'fatal',
+  timestamp: '2023-06-18T01:01:31.728Z'
+}
+{
+  message: 'Mostrando log fatal',
+  level: 'fatal',
+  timestamp: '2023-06-18T01:02:28.494Z'
+}
+{
+  message: 'Mostrando log error',
+  level: 'error',
+  timestamp: '2023-06-18T01:02:28.497Z'
+}
