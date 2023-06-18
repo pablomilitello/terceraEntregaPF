@@ -4,12 +4,12 @@ import { logger } from '../utils/winston.js';
 const router = Router();
 
 router.get('/', (req, res) => {
-  logger.fatal('Mostrando log fatal');
-  logger.error('Mostrando log error');
-  logger.warning('Mostrando log warning');
-  logger.info('Mostrando log info');
-  logger.http('Mostrando log http');
-  logger.debug('Mostrando log debug');
+  logger.fatal('Showing Fatal log');
+  logger.error('Showing Error log');
+  logger.warning('Showing Warning log');
+  logger.info('Showing Info log');
+  logger.http('Showing Http log');
+  logger.debug('Showing Debug log');
   res.send('My first Logger in Winston');
 });
 

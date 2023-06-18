@@ -17,6 +17,7 @@ import mockingProductsRouter from './routes/mockingProducts.router.js';
 import loggerTestRouter from './routes/loggerTestRouter.js';
 import { __dirname } from './utils/utils.js';
 import { errorMiddleware } from './services/errors/error.middleware.js';
+import { logger } from './utils/winston.js';
 
 const app = express();
 
@@ -83,17 +84,17 @@ app.get('/readCookieSigned', (req, res) => {
 app.use(errorMiddleware);
 
 //Configuro el SocketServer
-const httpServer = app.listen(PORT, () => console.log(`Listen in port ${PORT}`));
+const httpServer = app.listen(PORT, () => logger.info(`Listen in port ${PORT}`));
 
 const messages = [];
 
 const socketServer = new Server(httpServer);
 
 socketServer.on('connection', (socket) => {
-  console.log(`Client conected id: ${socket.id}`);
+  logger.info(`Client conected id: ${socket.id}`);
 
   socket.on('disconnect', () => {
-    console.log(`Client disconected id: ${socket.id}`);
+    logger.info(`Client disconected id: ${socket.id}`);
   });
 
   socket.on('message', (info) => {
