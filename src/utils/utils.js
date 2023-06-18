@@ -2,7 +2,7 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
-export const __dirname = dirname(fileURLToPath(import.meta.url));
+export const __dirname = dirname(dirname(fileURLToPath(import.meta.url)));
 
 export const ASC = 'asc';
 export const DESC = 'desc';
