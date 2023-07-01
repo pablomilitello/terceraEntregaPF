@@ -23,3 +23,15 @@ export const authAdmin = (req, res, next) => {
     res.status(403).end();
   }
 };
+
+export const authPremium = (req, res, next) => {
+  if (!req.user) {
+    res.status(401).json('Session expired');
+    return;
+  }
+  if (req.user.role === ROLE_PREMIUM) {
+    next();
+  } else {
+    res.status(403).end();
+  }
+};

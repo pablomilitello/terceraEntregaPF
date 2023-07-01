@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 export const ROLE_USER = 'user';
 export const ROLE_ADMIN = 'admin';
+export const ROLE_PREMIUM = 'premium';
 
 const usersSchema = new mongoose.Schema({
   firstName: {

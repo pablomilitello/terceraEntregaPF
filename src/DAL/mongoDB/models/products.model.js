@@ -38,6 +38,10 @@ const productsSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  owner: {
+    type: String,
+    default: 'admin',
+  },
 }).plugin(paginate);
 
 export const productModel = mongoose.model('Products', productsSchema);

@@ -12,6 +12,7 @@ import {
   passportRegister,
   register,
 } from '../controllers/users.controller.js';
+import { recover, recoverPage } from '../controllers/recovery.controller.js';
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.get('/', register);
 router.get('/login', login);
 router.get('/errorRegister', errorRegister);
 router.get('/errorLogin', errorLogin);
+router.get('/recoverPage', recoverPage);
 
 //Passport
 router.post('/', passport.authenticate('register', { failureRedirect: '/register/errorRegister' }), passportRegister);
@@ -36,5 +38,8 @@ router.get(
 router.get('/github', passport.authenticate('github', { failureRedirect: '/register/errorLogin' }), githubAuthenticate);
 
 router.get('/current', currentSession);
+
+//Recover password
+router.post('/recover', recover);
 
 export default router;
