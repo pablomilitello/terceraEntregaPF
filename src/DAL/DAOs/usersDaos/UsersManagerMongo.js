@@ -1,6 +1,10 @@
 import { userModel } from '../../mongoDB/models/users.model.js';
 import BasicManager from '../basicDaos/BasicManager.js';
 export default class UsersManager extends BasicManager {
+  constructor(model) {
+    super(model);
+  }
+
   async findByEmail(email) {
     const user = await userModel.findOne({ email });
     return user;

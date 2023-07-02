@@ -12,7 +12,7 @@ import {
   passportRegister,
   register,
 } from '../controllers/users.controller.js';
-import { recover, recoverPage } from '../controllers/recovery.controller.js';
+import { changePass, changePassPage, recover, recoverPage } from '../controllers/recovery.controller.js';
 
 const router = Router();
 
@@ -20,7 +20,6 @@ router.get('/', register);
 router.get('/login', login);
 router.get('/errorRegister', errorRegister);
 router.get('/errorLogin', errorLogin);
-router.get('/recoverPage', recoverPage);
 
 //Passport
 router.post('/', passport.authenticate('register', { failureRedirect: '/register/errorRegister' }), passportRegister);
@@ -40,6 +39,9 @@ router.get('/github', passport.authenticate('github', { failureRedirect: '/regis
 router.get('/current', currentSession);
 
 //Recover password
+router.get('/recoverPage', recoverPage);
+router.get('/changePassPage', changePassPage);
 router.post('/recover', recover);
+router.post('/changePass', changePass);
 
 export default router;

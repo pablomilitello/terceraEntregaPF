@@ -13,4 +13,5 @@ export const ErrorMessage = {
   WRONG_AVAILABILITY: 'wrong availability',
   WRONG_SORT: 'wrong sort',
   SESSION_EXPIRED: 'Session expired',
+  MAIL_NOT_SEND: 'Mail not send',
 };
