@@ -117,6 +117,7 @@ export const getProductById = async (req, res, next) => {
 export const addProducts = async (req, res, next) => {
   try {
     const obj = req.body;
+    obj.owner = req.user.email;
     const newProduct = await createOneProduct(obj);
     res.status(201).json({ message: 'Product created', product: newProduct });
   } catch (error) {

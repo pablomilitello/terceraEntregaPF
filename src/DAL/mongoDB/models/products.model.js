@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import paginate from 'mongoose-paginate-v2';
+import { ROLE_ADMIN } from './users.model.js';
 
 const productsSchema = new mongoose.Schema({
   title: {
@@ -40,7 +41,7 @@ const productsSchema = new mongoose.Schema({
   },
   owner: {
     type: String,
-    default: 'admin',
+    default: ROLE_ADMIN,
   },
 }).plugin(paginate);
 

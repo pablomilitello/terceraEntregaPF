@@ -1,3 +1,8 @@
+import UsersDB_DTO from '../DAL/DTOs/usersDB.dto.js';
+import { userManager } from '../DAL/DAOs/usersDaos/UsersManagerMongo.js';
+import { ROLE_ADMIN, ROLE_PREMIUM, ROLE_USER } from '../DAL/mongoDB/models/users.model.js';
+import CustomError from '../services/errors/CustomError.js';
+
 export const register = (req, res) => {
   res.render('register');
 };
@@ -44,4 +49,22 @@ export const currentSession = (req, res) => {
   const user = { ...req.user._doc };
   delete user.password;
   res.json(user);
+};
+
+export const togglePremium = async (req, res, next) => {
+  try {
+    const { uid } = req.params;
+    const user = await userManager.findOneById(uid);
+    if (user.role === ROLE_ADMIN) {
+      CustomError.createCustomError({
+        message: 'Admin cannot be premium',
+        status: 400,
+      });
+    }
+    user.role = user.role === ROLE_USER ? ROLE_PREMIUM : ROLE_USER;
+    await user.save()
+    res.json(new UsersDB_DTO(user));
+  } catch (error) {
+    next(error);
+  }
 };
