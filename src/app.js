@@ -19,6 +19,8 @@ import loggerTestRouter from './routes/loggerTestRouter.js';
 import { __dirname } from './utils/utils.js';
 import { errorMiddleware } from './services/errors/error.middleware.js';
 import { logger } from './utils/winston.js';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSetup } from './swaggerSpecs.js';
 
 const app = express();
 
@@ -60,6 +62,9 @@ app.use('/views', viewsRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/mockingproducts', mockingProductsRouter);
 app.use('/loggerTest', loggerTestRouter);
+
+//Swagger
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
 app.get('/createCookie', (req, res) => {
   res.cookie('cookie2', 'Second Cookie').send('Cookie added');

@@ -1,0 +1,36 @@
+paths:
+  /api/products:
+    get:
+      summary: Get all products
+      responses:
+        '200':
+          description: All products found
+        '400':
+          description: Some data is missing
+        '500':
+          description: Server error
+      tags:
+        - Products
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        title:
+          type: String,
+        description:
+          type: String,
+        category:
+          type: String,
+        price:
+          type: Number,
+        thumbnail:
+          type: Array,
+        code:
+          type: String,
+        stock:
+          type: Number,
+        status:
+          type: Boolean,
+        owner:
+          type: String,
