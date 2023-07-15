@@ -114,3 +114,5 @@ socketServer.on('connection', (socket) => {
     socketServer.emit('chat', messages);
   });
 });
+
+export default app;
