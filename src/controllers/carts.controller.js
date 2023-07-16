@@ -42,7 +42,7 @@ export const addProductsToCart = async (req, res, next) => {
   try {
     const { cid, pid } = req.params;
     const newCart = await productsToCart(cid, pid);
-    res.status(201).json(newCart);
+    res.status(200).json(newCart);
   } catch (error) {
     next(error);
   }
