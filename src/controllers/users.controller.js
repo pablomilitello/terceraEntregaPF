@@ -62,8 +62,15 @@ export const togglePremium = async (req, res, next) => {
       });
     }
     user.role = user.role === ROLE_USER ? ROLE_PREMIUM : ROLE_USER;
-    await user.save()
+    await user.save();
     res.json(new UsersDB_DTO(user));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const enterDocuments = async (req, res, next) => {
+  try {
   } catch (error) {
     next(error);
   }
