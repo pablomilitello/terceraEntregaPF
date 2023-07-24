@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { enterDocuments, togglePremium } from '../controllers/users.controller.js';
+import { togglePremium, uploadFiles } from '../controllers/users.controller.js';
+import { uploader } from '../utils/utils.js';
 
 const router = Router();
 
 router.post('/premium/:uid', togglePremium);
-router.post('/:uid/documents', enterDocuments);
+router.post('/:uid/documents', uploader.array('files', 5), uploadFiles);
 
 export default router;

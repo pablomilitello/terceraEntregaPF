@@ -14,4 +14,5 @@ export const ErrorMessage = {
   WRONG_SORT: 'wrong sort',
   SESSION_EXPIRED: 'Session expired',
   MAIL_NOT_SEND: 'Mail not send',
+  COULD_NOT_IMAGE: 'Could not save image',
 };

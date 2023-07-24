@@ -3,6 +3,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
 export const __dirname = dirname(dirname(fileURLToPath(import.meta.url)));
+import multer from 'multer';
 
 export const ASC = 'asc';
 export const DESC = 'desc';
@@ -36,3 +37,15 @@ export const hashData = async (data) => {
 export const compareData = async (data, dataDB) => {
   return bcrypt.compare(data, dataDB);
 };
+
+//Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + '/public/uploads');
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+export const uploader = multer({ storage: storage, limits: { files: 5 } });
