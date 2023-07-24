@@ -71,17 +71,12 @@ export const togglePremium = async (req, res, next) => {
 
 export const uploadFiles = async (req, res, next) => {
   try {
-    console.log(req.file);
     if (!req.files || req.files.length === 0) {
       CustomError.createCustomError({
         message: 'Could not save image',
         status: 400,
       });
     }
-    let users = req.body.users;
-    users.forEach((user, index) => {
-      user.profile = req.files[index].path;
-    });
     res.send({ message: 'Files saved' });
   } catch (error) {
     next(error);
