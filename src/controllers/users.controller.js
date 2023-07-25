@@ -62,8 +62,6 @@ export const togglePremium = async (req, res, next) => {
       });
     }
 
-    // TODO: agregar validacion de documentacion aca
-
     user.role = user.role === ROLE_USER ? ROLE_PREMIUM : ROLE_USER;
     await user.save();
     res.json(new UsersDB_DTO(user));
