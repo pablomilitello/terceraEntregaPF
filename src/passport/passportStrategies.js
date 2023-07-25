@@ -26,7 +26,8 @@ passport.use(
       if (!isPassword) {
         return done(null, false);
       }
-
+      user.last_connection = new Date();
+      await user.save();
       done(null, user);
     }
   )
@@ -70,6 +71,8 @@ passport.use(
         const email = profile._json.email;
         const userDB = await userModel.findOne({ email });
         if (userDB) {
+          userDB.last_connection = new Date();
+          await userDB.save();
           return done(null, userDB);
         }
         const newCart = await cartManager.createOne();
@@ -80,6 +83,8 @@ passport.use(
           cart: newCart.id,
         };
         const newUserDB = await userModel.create(newUser);
+        newUserDB.last_connection = new Date();
+        await newUserDB.save();
         done(null, newUserDB);
       } catch (e) {
         console.error(e);

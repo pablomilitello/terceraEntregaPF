@@ -4,16 +4,19 @@ export const ROLE_USER = 'user';
 export const ROLE_ADMIN = 'admin';
 export const ROLE_PREMIUM = 'premium';
 
-const documentSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const documentSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    reference: {
+      type: String,
+      required: true,
+    },
   },
-  reference: {
-    type: String,
-    required: true,
-  },
-});
+  { _id: false }
+);
 
 const usersSchema = new mongoose.Schema({
   firstName: {

@@ -61,6 +61,9 @@ export const togglePremium = async (req, res, next) => {
         status: 400,
       });
     }
+
+    // TODO: agregar validacion de documentacion aca
+
     user.role = user.role === ROLE_USER ? ROLE_PREMIUM : ROLE_USER;
     await user.save();
     res.json(new UsersDB_DTO(user));
@@ -77,6 +80,14 @@ export const uploadFiles = async (req, res, next) => {
         status: 400,
       });
     }
+    const { uid } = req.params;
+    const user = await userManager.findOneById(uid);
+    const newDocuments = req.files.map((file) => ({
+      name: file.originalname,
+      reference: file.path,
+    }));
+    user.documents = [...user.documents, ...newDocuments];
+    await user.save();
     res.send({ message: 'Files saved' });
   } catch (error) {
     next(error);

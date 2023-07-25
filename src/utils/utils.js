@@ -39,13 +39,20 @@ export const compareData = async (data, dataDB) => {
 };
 
 //Multer
+const PROFILE = 'profile';
+const PRODUCT = 'product';
+const DOCUMENT = 'document';
+const FileTypes = [PROFILE, PRODUCT, DOCUMENT];
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/public/uploads');
+    const type = file.originalname.split('.')[0];
+    const destDir = FileTypes.includes(type) ? type : DOCUMENT;
+    cb(null, `${__dirname}/public/uploads/${destDir}`);
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
 
-export const uploader = multer({ storage: storage, limits: { files: 5 } });
+export const uploader = multer({ storage });
